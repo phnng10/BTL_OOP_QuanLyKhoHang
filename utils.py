@@ -3,11 +3,11 @@ import os
 import time
 
 # ==========================
-#Định dạng và tiện ích chung
+# Các hàm tiện ích dùng chung
 # ==========================
 
 def format_currency(amount):
-    "Định dạng số tiền có dấu phẩy và đơn vị VNĐ"
+    "Định dạng tiền tệ VNĐ"
     try:
         return f"{amount:,.0f} đ"
     except (ValueError, TypeError):
@@ -18,35 +18,34 @@ def confirm_action(message="Bạn có chắc chắn muốn tiếp tục? (y/n): 
     "Hỏi xác nhận thao tác"
     while True:
         ans = input(message).strip().lower()
-        if ans in ["y", "yes"]:
+        if ans in ("y", "yes"):
             return True
-        elif ans in ["n", "no"]:
+        elif ans in ("n", "no"):
             return False
         else:
             print("Vui lòng nhập 'y' hoặc 'n'.")
 
 
 def pause():
-    "Tạm dừng màn hình (ấn Enter để tiếp tục)"
+    "Tạm dừng màn hình"
     input("\nNhấn Enter để tiếp tục...")
 
 
 def clear_screen():
-    "Xóa màn hình console (hỗ trợ Windows & macOS/Linux)"
+    "Xóa màn hình console"
     os.system("cls" if os.name == "nt" else "clear")
 
 
 def print_title(title):
     "In tiêu đề có khung"
-    print("\n" + "=" * 40)
-    print(title.center(40))
-    print("=" * 40)
+    print("\n" + "=" * 50)
+    print(title.center(50))
+    print("=" * 50)
 
 
 def slow_print(text, delay=0.02):
-    "In từng ký tự (tạo hiệu ứng chạy chữ nhẹ)"
+    "Hiệu ứng in chữ chậm"
     for ch in text:
         print(ch, end="", flush=True)
         time.sleep(delay)
-    print()  
-
+    print()
