@@ -5,7 +5,6 @@ from order import Order
 from product import Toy, Fashion, Beverage
 from utils import clear_screen, pause, print_title, confirm_action, format_currency
 
-
 def main():
     warehouse = Warehouse()
     customer_manager = CustomerManager()
@@ -37,7 +36,6 @@ def main():
             print("Lựa chọn không hợp lệ!")
             pause()
 
-
 # ======================
 # Quản lý sản phẩm
 # ======================
@@ -66,7 +64,6 @@ def menu_product(warehouse):
         else:
             print("Lựa chọn không hợp lệ!")
             pause()
-
 
 def add_product_ui(warehouse):
     clear_screen()
@@ -111,7 +108,6 @@ def add_product_ui(warehouse):
     warehouse.add_product(product)
     pause()
 
-
 # ======================
 # Quản lý kho
 # ======================
@@ -140,7 +136,6 @@ def menu_warehouse(warehouse):
         else:
             print("Lựa chọn không hợp lệ!")
             pause()
-
 
 # ======================
 # Quản lý khách hàng
@@ -173,7 +168,6 @@ def menu_customer(manager):
             print(" Lựa chọn không hợp lệ!")
         pause()
 
-
 # ======================
 # Quản lý đơn hàng
 # ======================
@@ -193,14 +187,13 @@ def menu_order(orders, customer_manager, warehouse):
                 print("(Chưa có đơn hàng nào)")
             else:
                 for o in orders:
-                    print(f"🧾 Đơn {o.order_id} - {o.customer.name} - Tổng: {format_currency(o.calculate_total())}")
+                    print(f" Đơn {o.order_id} - {o.customer.name} - Tổng: {format_currency(o.calculate_total())}")
             pause()
         elif c == "3":
             break
         else:
             print(" Lựa chọn không hợp lệ!")
             pause()
-
 
 def create_order(orders, customer_manager, warehouse):
     clear_screen()
@@ -230,7 +223,6 @@ def create_order(orders, customer_manager, warehouse):
     orders.append(order)
     pause()
 
-
 # ======================
 # Khởi chạy chương trình
 # ======================
@@ -239,3 +231,4 @@ if __name__ == "__main__":
         main()
     except Exception as e:
         print(f"Lỗi chương trình: {e}")
+
