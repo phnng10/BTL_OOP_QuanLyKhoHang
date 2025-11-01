@@ -48,4 +48,5 @@ def slow_print(text, delay=0.02):
     for ch in text:
         print(ch, end="", flush=True)
         time.sleep(delay)
-    print()  # xuống dòng
+    print()  
+
