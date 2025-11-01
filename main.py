@@ -3,9 +3,11 @@ from warehouse import Warehouse
 from customer import CustomerManager
 from order import Order
 from product import Toy, Fashion, Beverage
-from utils import clear_screen, pause, print_title, confirm_action, format_currency
+from utils import clear_screen, pause, print_title, confirm_action, format_currency, slow_print
+
 
 def main():
+    slow_print("Khởi động hệ thống quản lý bán hàng...", 0.01)
     warehouse = Warehouse()
     customer_manager = CustomerManager()
     orders = []
@@ -18,8 +20,8 @@ def main():
         print("3. Quản lý khách hàng")
         print("4. Quản lý đơn hàng")
         print("5. Thoát")
-        choice = input("\n→ Chọn chức năng: ").strip()
 
+        choice = input("\n→ Chọn chức năng: ").strip()
         if choice == "1":
             menu_product(warehouse)
         elif choice == "2":
@@ -30,15 +32,14 @@ def main():
             menu_order(orders, customer_manager, warehouse)
         elif choice == "5":
             if confirm_action("Bạn có chắc muốn thoát? (y/n): "):
-                print("Cảm ơn bạn đã sử dụng chương trình!")
+                slow_print("Cảm ơn bạn đã sử dụng chương trình ", 0.02)
                 break
         else:
-            print("Lựa chọn không hợp lệ!")
+            print(" Lựa chọn không hợp lệ!")
             pause()
 
-# ======================
-# Quản lý sản phẩm
-# ======================
+
+# ==== Các menu con (đồng bộ theo class thực tế) ====
 def menu_product(warehouse):
     while True:
         clear_screen()
@@ -64,6 +65,7 @@ def menu_product(warehouse):
         else:
             print("Lựa chọn không hợp lệ!")
             pause()
+
 
 def add_product_ui(warehouse):
     clear_screen()
@@ -95,7 +97,7 @@ def add_product_ui(warehouse):
         try:
             volume = int(input("Dung tích (ml): "))
         except ValueError:
-            print(" Dung tích phải là số!")
+            print("Dung tích phải là số!")
             pause()
             return
         sugar = input("Không đường? (y/n): ").lower() == "y"
@@ -108,15 +110,13 @@ def add_product_ui(warehouse):
     warehouse.add_product(product)
     pause()
 
-# ======================
-# Quản lý kho
-# ======================
+
 def menu_warehouse(warehouse):
     while True:
         clear_screen()
         print_title("QUẢN LÝ KHO HÀNG")
         print("1. Xem hàng sắp hết")
-        print("2. Cập nhật tồn kho (nhập/xuất)")
+        print("2. Cập nhật tồn kho")
         print("3. Quay lại")
         c = input("\n→ Chọn: ").strip()
 
@@ -129,7 +129,7 @@ def menu_warehouse(warehouse):
                 amount = int(input("Nhập số lượng (+ để nhập, - để xuất): "))
                 warehouse.update_stock(pid, amount)
             except ValueError:
-                print("Số lượng phải là số nguyên.")
+                print(" Số lượng phải là số nguyên.")
             pause()
         elif c == "3":
             break
@@ -137,9 +137,7 @@ def menu_warehouse(warehouse):
             print("Lựa chọn không hợp lệ!")
             pause()
 
-# ======================
-# Quản lý khách hàng
-# ======================
+
 def menu_customer(manager):
     while True:
         clear_screen()
@@ -168,9 +166,7 @@ def menu_customer(manager):
             print(" Lựa chọn không hợp lệ!")
         pause()
 
-# ======================
-# Quản lý đơn hàng
-# ======================
+
 def menu_order(orders, customer_manager, warehouse):
     while True:
         clear_screen()
@@ -195,6 +191,7 @@ def menu_order(orders, customer_manager, warehouse):
             print(" Lựa chọn không hợp lệ!")
             pause()
 
+
 def create_order(orders, customer_manager, warehouse):
     clear_screen()
     print_title("TẠO ĐƠN HÀNG MỚI")
@@ -203,7 +200,7 @@ def create_order(orders, customer_manager, warehouse):
     customer = customer_manager.find_by_id(customer_id)
 
     if not customer:
-        print("Khách hàng chưa tồn tại, vui lòng thêm trước.")
+        print(" Khách hàng chưa tồn tại, vui lòng thêm trước.")
         pause()
         return
 
@@ -218,17 +215,14 @@ def create_order(orders, customer_manager, warehouse):
             order.add_item(pid, quantity)
         except ValueError:
             print("Số lượng không hợp lệ.")
-    print(f" Tổng tiền: {format_currency(order.calculate_total())}")
+    print(f"ổng tiền: {format_currency(order.calculate_total())}")
     order.export_invoice()
     orders.append(order)
     pause()
 
-# ======================
-# Khởi chạy chương trình
-# ======================
+
 if __name__ == "__main__":
     try:
         main()
     except Exception as e:
         print(f"Lỗi chương trình: {e}")
-
